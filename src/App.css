@@ -23,15 +23,6 @@
     padding: 10px;
   }
 
-  .hidden {
-      display: none;
-  }
-
-  .canvas{
-    border: 1px solid black;
-    position: relative;
-    left: 10%;
-  }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

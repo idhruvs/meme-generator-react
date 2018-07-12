@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import ImageRow from './components/img-row/img-row';
+import Container from './components/container/container';
 
 class App extends Component {
   render() {
@@ -12,7 +12,7 @@ class App extends Component {
           <h1 className="App-title">Generator</h1>
         </header>
         </div>
-        <ImageRow/>
+        <Container />
         </div>
     );
   }
