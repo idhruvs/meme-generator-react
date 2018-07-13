@@ -13,19 +13,21 @@ class Container extends Component {
     }
 
     handleSelectedImage = (image) => {
-        console.log(image);
-        this.setState({readyForEditing: true, image: image}, ()=> {console.log('completed in container')});
+        console.log(this.state);
+        this.setState({readyForEditing: true, image: image}, ()=> {console.log('completed in container', this.state)});
     }
 
     render() {
+        const divStyle  = {
+            display: 'flex'
+        };
         return (
-            <div>
+            <div style={divStyle}>
                 <ImageRow handleImage={this.handleSelectedImage} />
-                <CanvasContainer imageUrl={this.state.image} />
+                <CanvasContainer readyForEditing={this.state.readyForEditing} imageUrl={this.state.image} />
             </div>
         );
     }
-
 }
 
 export default Container

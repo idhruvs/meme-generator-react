@@ -1,48 +1,51 @@
 import React, { Component } from 'react';
 import { Stage, Layer, Text, Image } from "react-konva";
-import { CanvasImage } from '../canvas-image/canvas-image';
-import ImageContainer from '../img-container/img-container';
 
 class CanvasContainer extends Component {
-    state={
-        image: null
+    constructor() {
+        super();
+        this.state={
+            image: new window.Image()
+        }
+        this.canvasWidth = 400;
+        this.canvasHeight= 400;
     }
-
-    renderImage = () => {
-        const image = new window.Image();
-        image.src = this.props.imageUrl;
-        image.onload = () => {
-            this.setState({
-                image: image
-            }, ()=> {
-                console.log('image loaded');
-            });
-        };
-    }
-
-    componentWillReceiveProps() {
-        console.log(
-            'recieve props'
-        )
-        this.renderImage();
-    }
-
+    
     render() {
-        if(this.state.image !== null) {
+        if(this.props.readyForEditing){
+            // *Info: This block gets executed when an image is selected.
+            this.state.image.src = this.props.imageUrl;
+            this.state.image.onload = () => {
+                // calling set state here will do nothing
+                // because properties of Konva.Image are not changed
+                // so we need to update layer manually
+                this.imageNode.getLayer().batchDraw();
+            };
             
             return (
-                <Stage>
+                <Stage  width={this.canvasWidth} height={this.canvasHeight}>
                     <Layer> 
-                        <Image image={this.state.image} />
+                        <Image 
+                            image = {this.state.image} 
+                            ref={node => {
+                                this.imageNode = node;
+                            }} 
+                            width={250}
+                            height={250}
+                        />
                         <Text text="Hi" />
                     </Layer>
                 </Stage>
             )
         }
         else {
-            return <p> Select Image for Editing </p>
+            return (
+                <p> No image selected </p>
+            )
         }
+        
     }
 }
+
 
 export default CanvasContainer
